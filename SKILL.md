@@ -13,6 +13,18 @@ This skill combines:
 - explicit autonomy methodology
 - visual HTML reporting
 
+## Distinguishing methodology
+
+This skill is opinionated about measurement.
+
+It does **not** use session wall-clock span as the autonomy headline.
+
+It always separates:
+- `pre-audit` vs `live`
+- strict activity-based execution vs coding time
+- uninterrupted coding turns vs merged autonomy blocks
+- conservative artifact counts vs noisy filesystem counts
+
 Inspiration and workflow guide:
 - `https://github.com/nicobailon/visual-explainer`
 

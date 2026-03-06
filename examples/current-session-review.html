@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Current Session Review Sample</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5efe6;
+        --bg-alt: #ebe1d3;
+        --surface: rgba(255, 252, 247, 0.88);
+        --border: rgba(29, 53, 87, 0.14);
+        --text: #18263d;
+        --text-dim: #5a6576;
+        --navy: #1d3557;
+        --gold: #d4a73a;
+        --teal: #365f73;
+        --forest: #83a598;
+        --rose: #9f1239;
+        --shadow: 0 24px 60px rgba(24, 38, 61, 0.1);
+        --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+        --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        color: var(--text);
+        background:
+          radial-gradient(circle at 16% 18%, rgba(54, 95, 115, 0.14), transparent 24%),
+          radial-gradient(circle at 84% 14%, rgba(180, 83, 9, 0.08), transparent 18%),
+          linear-gradient(180deg, var(--bg), var(--bg-alt));
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(89, 73, 61, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(89, 73, 61, 0.04) 1px, transparent 1px);
+        background-size: 32px 32px;
+        mask-image: radial-gradient(circle at center, black 55%, transparent 96%);
+      }
+
+      .page {
+        width: min(1320px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 64px;
+      }
+
+      .hero,
+      .section,
+      .metrics,
+      .methodology {
+        margin-bottom: 22px;
+      }
+
+      .card {
+        border-radius: 28px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.8fr);
+        gap: 18px;
+      }
+
+      .hero__copy {
+        padding: 28px;
+        background:
+          linear-gradient(135deg, rgba(29, 53, 87, 0.08), rgba(212, 167, 58, 0.08)),
+          var(--surface);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        gap: 8px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        letter-spacing: -0.04em;
+      }
+
+      h1 {
+        font-size: clamp(36px, 5vw, 64px);
+        line-height: 0.96;
+        max-width: 11ch;
+        margin-bottom: 14px;
+      }
+
+      p {
+        margin: 0;
+        color: var(--text-dim);
+        line-height: 1.6;
+      }
+
+      .hero__meta {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .pill {
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(29, 53, 87, 0.1);
+      }
+
+      .pill span {
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: var(--text-dim);
+        margin-bottom: 6px;
+      }
+
+      .pill strong {
+        display: block;
+        font-size: 20px;
+      }
+
+      .hero__focus {
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .hero__focus .big {
+        font-size: clamp(44px, 6vw, 74px);
+        line-height: 0.92;
+        font-family: var(--font-mono);
+        color: var(--navy);
+      }
+
+      .hero__focus .label {
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        font-weight: 700;
+      }
+
+      .hero__focus .bar,
+      .mini-bar {
+        height: 14px;
+        border-radius: 999px;
+        background: rgba(29, 53, 87, 0.08);
+        overflow: hidden;
+      }
+
+      .hero__focus .bar span,
+      .mini-bar span {
+        display: block;
+        height: 100%;
+        width: 0;
+        transition: width 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .hero__focus .bar span {
+        background: linear-gradient(90deg, var(--navy), var(--gold));
+      }
+
+      .section__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+
+      .section__head h2 {
+        font-size: clamp(26px, 3vw, 38px);
+      }
+
+      .methodology__grid,
+      .metrics__grid,
+      .two-up {
+        display: grid;
+        gap: 18px;
+      }
+
+      .methodology__grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .method {
+        padding: 20px;
+      }
+
+      .method strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+
+      .metrics__grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .metric {
+        padding: 20px;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .metric__label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+      }
+
+      .metric__value {
+        font-size: clamp(28px, 4vw, 50px);
+        line-height: 1;
+        letter-spacing: -0.05em;
+        font-weight: 700;
+      }
+
+      .metric__sub {
+        color: var(--text-dim);
+        font-size: 14px;
+      }
+
+      .metric--navy {
+        background: linear-gradient(160deg, rgba(29, 53, 87, 0.1), rgba(29, 53, 87, 0.03));
+      }
+
+      .metric--gold {
+        background: linear-gradient(160deg, rgba(212, 167, 58, 0.14), rgba(180, 83, 9, 0.04));
+      }
+
+      .metric--teal {
+        background: linear-gradient(160deg, rgba(54, 95, 115, 0.14), rgba(131, 165, 152, 0.04));
+      }
+
+      .metric--rose {
+        background: linear-gradient(160deg, rgba(159, 18, 57, 0.1), rgba(159, 18, 57, 0.03));
+      }
+
+      .two-up {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .panel {
+        padding: 22px;
+      }
+
+      .panel h3 {
+        font-size: 22px;
+        margin-bottom: 6px;
+      }
+
+      .panel p {
+        margin-bottom: 18px;
+      }
+
+      .rows {
+        display: grid;
+        gap: 14px;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 180px 1fr auto;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .row label {
+        color: var(--text-dim);
+        font-size: 14px;
+      }
+
+      .row code {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--navy);
+      }
+
+      .tone-navy span { background: linear-gradient(90deg, var(--navy), #466b9c); }
+      .tone-gold span { background: linear-gradient(90deg, var(--gold), #b45309); }
+      .tone-teal span { background: linear-gradient(90deg, var(--teal), var(--forest)); }
+      .tone-rose span { background: linear-gradient(90deg, var(--rose), #fb7185); }
+
+      .callout {
+        padding: 20px 22px;
+        border-radius: 22px;
+        border: 1px solid rgba(29, 53, 87, 0.1);
+        background: rgba(255, 255, 255, 0.58);
+      }
+
+      .callout strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+
+      .sample-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .sample-table th,
+      .sample-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(29, 53, 87, 0.08);
+        text-align: left;
+      }
+
+      .sample-table th {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+      }
+
+      .sample-table td code {
+        font-family: var(--font-mono);
+        font-size: 12px;
+      }
+
+      .footer {
+        margin-top: 18px;
+        color: var(--text-dim);
+        font-size: 13px;
+      }
+
+      .animate {
+        opacity: 0;
+        transform: translateY(12px);
+        animation: fadeUp 650ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .d1 { animation-delay: 40ms; }
+      .d2 { animation-delay: 90ms; }
+      .d3 { animation-delay: 140ms; }
+      .d4 { animation-delay: 190ms; }
+      .d5 { animation-delay: 240ms; }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 1080px) {
+        .hero,
+        .methodology__grid,
+        .metrics__grid,
+        .two-up {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          width: min(100vw - 18px, 100%);
+          padding-top: 14px;
+        }
+
+        .hero__meta {
+          grid-template-columns: 1fr;
+        }
+
+        .row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section class="hero">
+        <article class="card hero__copy animate">
+          <div class="eyebrow">Sample output · current live session</div>
+          <h1>Session review, with the methodology up front.</h1>
+          <p>
+            This sample audits the same Codex session that built the export
+            package, generated the banner, and pushed the repo. It is cut off at
+            the user request that asked to highlight methodology and add a
+            sample, so it demonstrates proper `pre-audit` handling.
+          </p>
+          <div class="hero__meta">
+            <div class="pill">
+              <span>Source log</span>
+              <strong>019cb5d2</strong>
+            </div>
+            <div class="pill">
+              <span>Cutoff</span>
+              <strong>20:18:23Z</strong>
+            </div>
+            <div class="pill">
+              <span>Scope</span>
+              <strong>Pre-audit</strong>
+            </div>
+          </div>
+        </article>
+
+        <aside class="card hero__focus animate d1">
+          <div class="label">Headline metric</div>
+          <div class="big">5:12:34</div>
+          <div class="bar"><span data-width="88.4"></span></div>
+          <p>
+            Strict activity-based autonomous coding time. Not wall-clock span.
+          </p>
+        </aside>
+      </section>
+
+      <section class="methodology">
+        <div class="section__head animate">
+          <div>
+            <h2>Methodology</h2>
+            <p>These rules are what make the review defensible.</p>
+          </div>
+        </div>
+        <div class="methodology__grid">
+          <article class="card method animate d1">
+            <strong>Pre-audit first</strong>
+            <p>Stop the main metrics at the audit request itself. Do not contaminate the review with the work required to generate it.</p>
+          </article>
+          <article class="card method animate d2">
+            <strong>Activity beats wall-clock</strong>
+            <p>Use contiguous execution intervals and strip long silent gaps. Session age is context, not the autonomy headline.</p>
+          </article>
+          <article class="card method animate d3">
+            <strong>Coding vs execution</strong>
+            <p>Separate validation and orchestration from real implementation time. Both matter, but they are not the same.</p>
+          </article>
+          <article class="card method animate d4">
+            <strong>Conservative artifact counts</strong>
+            <p>Prefer command-targeted outputs over noisy filesystem modification scans when the repo has unrelated churn.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="metrics">
+        <div class="section__head animate">
+          <div>
+            <h2>Core Metrics</h2>
+            <p>Numbers from the main session log before sample generation.</p>
+          </div>
+        </div>
+        <div class="metrics__grid">
+          <article class="card metric metric--navy animate d1">
+            <div class="metric__label">Total tokens</div>
+            <div class="metric__value">129.5M</div>
+            <div class="metric__sub">129,536,986 total</div>
+          </article>
+          <article class="card metric metric--gold animate d2">
+            <div class="metric__label">Tool calls</div>
+            <div class="metric__value">1,297</div>
+            <div class="metric__sub">100% call/result mapping</div>
+          </article>
+          <article class="card metric metric--teal animate d3">
+            <div class="metric__label">Patch activity</div>
+            <div class="metric__value">85</div>
+            <div class="metric__sub">6,258 patch lines across 52 files</div>
+          </article>
+          <article class="card metric metric--rose animate d4">
+            <div class="metric__label">Messages</div>
+            <div class="metric__value">37 / 263</div>
+            <div class="metric__sub">user / assistant</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="two-up">
+          <article class="card panel animate d1">
+            <h3>Autonomy breakdown</h3>
+            <p>Strict time accounting from the session log.</p>
+            <div class="rows">
+              <div class="row">
+                <label>Coding time</label>
+                <div class="mini-bar tone-navy"><span data-width="88.4"></span></div>
+                <code>5:12:34</code>
+              </div>
+              <div class="row">
+                <label>Execution time</label>
+                <div class="mini-bar tone-teal"><span data-width="100"></span></div>
+                <code>5:53:36</code>
+              </div>
+              <div class="row">
+                <label>Non-coding active</label>
+                <div class="mini-bar tone-gold"><span data-width="11.6"></span></div>
+                <code>0:41:02</code>
+              </div>
+              <div class="row">
+                <label>Coding turns</label>
+                <div class="mini-bar tone-rose"><span data-width="64.9"></span></div>
+                <code>24 / 37</code>
+              </div>
+            </div>
+            <div class="footer">
+              Mean coding turn: <strong>13.0m</strong>. Median: <strong>14.1m</strong>.
+            </div>
+          </article>
+
+          <article class="card panel animate d2">
+            <h3>Merged autonomous blocks</h3>
+            <p>Short approval interruptions merged, long silent gaps excluded.</p>
+            <div class="rows">
+              <div class="row">
+                <label>Block A</label>
+                <div class="mini-bar tone-navy"><span data-width="100"></span></div>
+                <code>1:31:55</code>
+              </div>
+              <div class="row">
+                <label>Block B</label>
+                <div class="mini-bar tone-gold"><span data-width="62.1"></span></div>
+                <code>0:57:08</code>
+              </div>
+              <div class="row">
+                <label>Block C</label>
+                <div class="mini-bar tone-teal"><span data-width="61"></span></div>
+                <code>0:56:02</code>
+              </div>
+              <div class="row">
+                <label>Block D</label>
+                <div class="mini-bar tone-rose"><span data-width="41.8"></span></div>
+                <code>0:38:25</code>
+              </div>
+              <div class="row">
+                <label>Block E</label>
+                <div class="mini-bar tone-navy"><span data-width="40.7"></span></div>
+                <code>0:37:24</code>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="two-up">
+          <article class="card panel animate d3">
+            <h3>Token composition</h3>
+            <p>Most of the session context was served from cache.</p>
+            <div class="rows">
+              <div class="row">
+                <label>Cached input</label>
+                <div class="mini-bar tone-teal"><span data-width="96.8"></span></div>
+                <code>124,956,544</code>
+              </div>
+              <div class="row">
+                <label>Uncached input</label>
+                <div class="mini-bar tone-navy"><span data-width="3.2"></span></div>
+                <code>4,128,493</code>
+              </div>
+              <div class="row">
+                <label>Output</label>
+                <div class="mini-bar tone-gold"><span data-width="0.35"></span></div>
+                <code>451,949</code>
+              </div>
+              <div class="row">
+                <label>Reasoning output</label>
+                <div class="mini-bar tone-rose"><span data-width="0.13"></span></div>
+                <code>170,295</code>
+              </div>
+            </div>
+          </article>
+
+          <article class="card panel animate d4">
+            <h3>Tool mix</h3>
+            <p>Top orchestration counts before the sample cutoff.</p>
+            <table class="sample-table">
+              <thead>
+                <tr>
+                  <th>Tool</th>
+                  <th>Count</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>exec_command</code></td>
+                  <td>1,105</td>
+                  <td>Primary shell execution lane</td>
+                </tr>
+                <tr>
+                  <td><code>apply_patch</code></td>
+                  <td>85</td>
+                  <td>Direct file editing</td>
+                </tr>
+                <tr>
+                  <td><code>wait</code></td>
+                  <td>40</td>
+                  <td>Swarm coordination</td>
+                </tr>
+                <tr>
+                  <td><code>spawn_agent</code></td>
+                  <td>16</td>
+                  <td>Directed review / exploration</td>
+                </tr>
+                <tr>
+                  <td><code>view_image</code></td>
+                  <td>3</td>
+                  <td>Style review and banner inspection</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <article class="card panel animate d5">
+          <h3>Evidence notes</h3>
+          <div class="callout">
+            <strong>Why this sample is a useful public example</strong>
+            <p>
+              It captures a real end-to-end skill-publication workflow:
+              methodology refinement, sample generation, banner creation from a
+              house visual language, repository packaging, commit, and push.
+            </p>
+          </div>
+          <div class="footer">
+            Sample source: <code>/Users/ameno/.codex/sessions/2026/03/03/rollout-2026-03-03T14-29-25-019cb5d2-0201-7ed2-a4cc-8ec751e9ad7c.jsonl</code>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <script>
+      for (const el of document.querySelectorAll("[data-width]")) {
+        const width = Number(el.getAttribute("data-width")) || 0;
+        requestAnimationFrame(() => {
+          el.style.width = width + "%";
+        });
+      }
+    </script>
+  </body>
+</html>

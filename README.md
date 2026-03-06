@@ -36,6 +36,28 @@ The skill is designed to produce:
 
 If a local Remotion toolchain exists, the skill can optionally add an animated companion asset. If it does not, the skill falls back to HTML/CSS/SVG/DOM animation and says so explicitly.
 
+## Why this skill is different
+
+The methodology is the point.
+
+This package distinguishes between:
+- `wall-clock session age`
+- `strict activity-based execution time`
+- `strict activity-based coding time`
+- `merged autonomous coding blocks`
+
+It also treats current-session audits carefully:
+- `pre-audit` metrics stop at the user's audit request
+- `live` metrics are reported separately when useful
+
+And it avoids inflated artifact numbers by preferring conservative command-targeted counts over noisy filesystem modification timestamps.
+
+## Sample outputs
+
+Example review generated from the live build-and-publish session for this repo:
+- [examples/current-session-review-highlights.md](./examples/current-session-review-highlights.md)
+- [examples/current-session-review.html](./examples/current-session-review.html)
+
 ## Package contents
 
 - `SKILL.md`: runtime instructions for the agent
