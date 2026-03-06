@@ -1,0 +1,7 @@
+interface:
+  display_name: "Session Review Visual Explainer"
+  short_description: "Audit session logs into shareable visual reports"
+  icon_small: "./assets/session-review-small.svg"
+  icon_large: "./assets/session-review-large.svg"
+  brand_color: "#1D3557"
+  default_prompt: "Use $session-review-visual-explainer to audit this session and generate a markdown highlights file plus a visual HTML report."

@@ -1,0 +1,30 @@
+{
+  "name": "session-review-visual-explainer",
+  "version": "0.1.0",
+  "description": "Agent skill for rigorous session audits with visual HTML explainers and highlights, inspired by nicobailon/visual-explainer",
+  "keywords": [
+    "pi-package",
+    "codex-skill",
+    "session-review",
+    "visual-explainer",
+    "html-report"
+  ],
+  "license": "MIT",
+  "files": [
+    "SKILL.md",
+    "README.md",
+    "LICENSE",
+    "agents",
+    "assets",
+    "prompts",
+    "references"
+  ],
+  "pi": {
+    "skills": [
+      "./"
+    ],
+    "prompts": [
+      "./prompts"
+    ]
+  }
+}
